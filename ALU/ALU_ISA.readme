@@ -1,0 +1,31 @@
+[5 bit opcode][8 bit A][8 bit B]
+
+Bitwise
+	PREFIX	:    INST    :       OP          :   EXP
+        ----------------------------------------------------
+        2'b00	:   3'b000   :       AND         :   A&B
+        2'b00	:   3'b001   :       OR          :   A|B
+	2'b00   :   3'b010   :       XOR         :   A^B
+        2'b00	:   3'b011   :     1's Comp A    :   ~A
+        2'b00	:   3'b111   :     1's Comp B    :   ~B
+
+Shifting
+	PREFIX	:    INST    :       OP          :   EXP				 
+        ----------------------------------------------------------------------------------
+        2'b01	:   3'bX00   :    ARITH_SHIFT    :   A >>> B[2:0] or A <<< B[2:0]	 	
+        2'b01	:   3'bX01   :    LOGIC_SHIFT    :   A >> B[2:0]  or A << B[2:0] 	 
+	2'b01   :   3'bX10   :      ROTATE	 :   A ROT B[2:0] or {A, Cin} ROT B[2:0] 
+* B[3] == 1, left. B[3] == 0, right
+* B[4] == 1, use rotate with carry
+
+Arithmetic
+	PREFIX	:    INST    :       OP          :   EXP
+        ----------------------------------------------------
+        2'b10	:   3'b000   :       ADD         :   A+B
+        2'b10	:   3'b001   :     ADD Carry     :   A+B+Cin
+	2'b10   :   3'b010   :       SUB         :   A-B
+        2'b10	:   3'b011   :     SUB Carry     :   A-B+Cin
+        2'b10	:   3'b100   :     2's Comp      :   0-B
+	2'b10   :   3'b101   :       INC         :   A+1
+	2'b10   :   3'b110   :       DEC         :   A-1
+	2'b10   :   3'b111   :     PASS THRU     :   A
